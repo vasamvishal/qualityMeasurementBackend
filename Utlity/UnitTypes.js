@@ -15,6 +15,20 @@ class UnitTypes {
          let req={values1,values2};
          return callback(null,req);
      }
+
+     else if(body.Measurements=='VOLUME')
+     {
+         const VOLUME=[
+              { values: "3780", Type: "GALLON" },
+              { values: "1000", Type: "LITRES" },
+              { values: "1", Type: "MILLILITRES" }
+         ]
+         console.log(VOLUME)
+         let values1=VOLUME.find(o=>o.Type==body.convertTo).values;
+         let values2=VOLUME.find(o=>o.Type==body.Unit).values*body.Values;
+         let req={values1,values2};
+         return callback(null,req);
+     }
 }
 }
 
