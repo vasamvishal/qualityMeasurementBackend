@@ -2,8 +2,7 @@ let UnitTypes = require('../Utlity/UnitTypes');
 
 class Service {
     convert(body, callback) {
-        if(body.Measurements=='TEMPERATURE')
-        {
+        if (body.Measurements == 'TEMPERATURE') {
             UnitTypes.convertTemperature(body, (err, result) => {
                 if (err) {
                     callback(err);
@@ -11,15 +10,16 @@ class Service {
                     callback(null, {result});
                 }
             });
+        } else {
+            UnitTypes.conversion(body, (err, result) => {
+                if (err) {
+                    callback(err);
+                } else {
+                    let conversionFactor = (result.values2 / result.values1);
+                    callback(null, {conversionFactor});
+                }
+            });
         }
-        UnitTypes.checkForType(body, (err, result) => {
-            if (err) {
-                callback(err);
-            } else {
-                let conversionFactor = (result.values2 / result.values1);
-                callback(null, {conversionFactor});
-            }
-        });
     }
 }
 

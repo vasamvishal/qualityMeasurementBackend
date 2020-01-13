@@ -1,47 +1,41 @@
+let Units = [
+    {values: 1, Type: "INCHES", MeasurementsType: "LENGTH"},
+    {values: 12, Type: "FEET", MeasurementsType: "LENGTH"},
+    {values: 36, Type: "YARD", MeasurementsType: "LENGTH"},
+    {values: 0.393701, Type: "CENTIMETER", MeasurementsType: "LENGTH"},
+    {values: 3780, Type: "GALLON", MeasurementsType: "VOLUME"},
+    {values: 1000, Type: "LITRES", MeasurementsType: "VOLUME"},
+    {values: 1, Type: "MILLILITRES", MeasurementsType: "VOLUME"},
+    {values: 1, Type: "KILOGRAM", MeasurementsType: "WEIGHT"},
+    {values: 0.001, Type: "GRAM", MeasurementsType: "WEIGHT"},
+    {values: 1000, Type: "TONNE", MeasurementsType: "WEIGHT"},
+];
+
 class UnitTypes {
-    convertion = (body, callback) => {
-        let values1 = body.array.find(o => o.Type == body.body.convertTo).values;
-        let values2 = body.array.find(o => o.Type == body.body.Unit).values * body.body.Values;
-        let req = {values1, values2};
-        console.log(req);
-        return callback(null, req);
-    };
-    checkForType = (body, callback) => {
-        if (body.Measurements == 'LENGTH') {
-            let array = [
-                {values: 1, Type: "INCHES"},
-                {values: 12, Type: "FEET"},
-                {values: 36, Type: "YARD"},
-                {values: 0.393701, Type: "CENTIMETER"}
-            ];
-            let req = {array, body}
-            this.convertion(req, callback);
-        } else if (body.Measurements == 'VOLUME') {
-            const array = [
-                {values: "3780", Type: "GALLON"},
-                {values: "1000", Type: "LITRES"},
-                {values: "1", Type: "MILLILITRES"}
-            ];
-            let req = {array, body}
-            this.convertion(req, callback);
-        } else if (body.Measurements == 'WEIGHT') {
-            let array = [
-                {values: 1, Type: "KILOGRAM"},
-                {values: 0.001, Type: "GRAM"},
-                {values: 1000, Type: "TONNE"},
-            ]
-            let req = {array, body}
-            this.convertion(req, callback);
+    conversion = (body, callback) => {
+        let quantity1 = (Units.find(o => o.Type == body.convertTo).MeasurementsType);
+        let quantity2 = (Units.find(o => o.Type == body.Unit).MeasurementsType);
+        try {
+            if (quantity1==quantity2) {
+                let values1 = Units.find(o => o.Type == body.convertTo).values;
+                let values2 = Units.find(o => o.Type == body.Unit).values * body.Values;
+                let req = {values1, values2};
+                return callback(null, req);
+            } else {
+                return callback("enter proper values");
+            }
+        } catch (e) {
+            return callback("enter proper values");
         }
     }
+
     convertTemperature = (body, callback) => {
-        if (body.convertTo == 'CELCIUS' && body.Unit=='FARHENIET') {
+        if (body.convertTo == 'CELCIUS' && body.Unit == 'FARHENIET') {
             let temperature1 = ((body.Values - 32) * 5 / 9);
             return callback(null, {temperature1});
-        } else if (body.Unit == 'CELCIUS'&& body.convertTo=='FARHENIET') {
-            let temperature2 = ((body.Values * 9 / 5)+32);
+        } else if (body.Unit == 'CELCIUS' && body.convertTo == 'FARHENIET') {
+            let temperature2 = ((body.Values * 9 / 5) + 32);
             return callback(null, {temperature2});
-
         }
     }
 }
