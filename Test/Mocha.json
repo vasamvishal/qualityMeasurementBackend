@@ -1,0 +1,42 @@
+{
+  "LENGTH": [
+    {
+      "measurement": "LENGTH",
+      "convertTo": "FEET",
+      "Unit": "INCHES",
+      "Values": 1
+    },
+    {
+      "measurement": "VOLUME",
+      "convertTo": "CELCIUS",
+      "Unit": "INCHES",
+      "Values": 1
+    },
+    {
+      "measurement": "VOLUME",
+      "convertTo": "FEET",
+      "Unit": "INCHES",
+      "Values": 1
+    }
+  ],
+  "TEMPERATURE": [
+    {
+      "measurement": "TEMPERATURE",
+      "convertTo": "CELCIUS",
+      "Unit": "FARHENIET",
+      "Values": 1
+    },
+    {
+      "measurement": "TEMPERATURE",
+      "convertTo": "FARHENIET",
+      "Unit": "CELCIUS",
+      "Values": 1
+    },
+    {
+      "measurement": "TEMPERATURE",
+      "convertTo": "LENGTH",
+      "Unit": "FARHENIET",
+      "Values": 1
+    }
+  ]
+}

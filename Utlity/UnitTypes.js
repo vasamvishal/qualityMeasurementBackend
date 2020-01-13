@@ -13,19 +13,24 @@ let Units = [
 
 class UnitTypes {
     conversion = (body, callback) => {
+        try{
         let quantity1 = (Units.find(o => o.Type == body.convertTo).MeasurementsType);
+        console.log(quantity1);
         let quantity2 = (Units.find(o => o.Type == body.Unit).MeasurementsType);
-        try {
+        console.log(quantity2);
             if (quantity1==quantity2) {
-                let values1 = Units.find(o => o.Type == body.convertTo).values;
-                let values2 = Units.find(o => o.Type == body.Unit).values * body.Values;
-                let req = {values1, values2};
-                return callback(null, req);
-            } else {
-                return callback("enter proper values");
+                if(quantity1==body.Measurements) {
+                    let values1 = Units.find(o => o.Type == body.convertTo).values;
+                    let values2 = Units.find(o => o.Type == body.Unit).values * body.Values;
+                    let req = {values1, values2};
+                    return callback(null, req);
+                }
+                else{
+                    return callback("enter proper measurement type");
+                }
             }
         } catch (e) {
-            return callback("enter proper values");
+            return callback("enter proper values and legit values");
         }
     }
 
@@ -36,6 +41,9 @@ class UnitTypes {
         } else if (body.Unit == 'CELCIUS' && body.convertTo == 'FARHENIET') {
             let temperature2 = ((body.Values * 9 / 5) + 32);
             return callback(null, {temperature2});
+        }
+        else{
+            return callback({message:'Enter proper conversion value'});
         }
     }
 }
